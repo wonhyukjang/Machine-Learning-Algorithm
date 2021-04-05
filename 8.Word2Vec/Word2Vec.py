@@ -1,5 +1,3 @@
-# https://deeplearningcourses.com/c/natural-language-processing-with-deep-learning-in-python
-# https://udemy.com/natural-language-processing-with-deep-learning-in-python
 from __future__ import print_function, division
 from builtins import range
 # Note: you may need to update your version of future
@@ -12,8 +10,6 @@ import matplotlib.pyplot as plt
 from scipy.special import expit as sigmoid
 from sklearn.utils import shuffle
 from datetime import datetime
-# from util import find_analogies
-
 from scipy.spatial.distance import cosine as cos_dist
 from sklearn.metrics.pairwise import pairwise_distances
 
@@ -25,7 +21,6 @@ import sys
 import string
 
 
-# unfortunately these work different ways
 def remove_punctuation_2(s):
     return s.translate(None, string.punctuation)
 
@@ -249,7 +244,6 @@ def sgd(input_, targets, label, learning_rate, W, V):
   # W[input_] shape: D
   # V[:,targets] shape: D x N
   # activation shape: N
-  # print("input_:", input_, "targets:", targets)
 
   # Calculate Output Probability
   activation = W[input_].dot(V[:,targets])
@@ -359,5 +353,4 @@ def test_model(word2idx, W, V):
 
 if __name__ == '__main__':
   word2idx, W, V = train_model('w2v_model')
-  # word2idx, W, V = load_model('w2v_model')
   test_model(word2idx, W, V)

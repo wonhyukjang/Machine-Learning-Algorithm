@@ -42,9 +42,8 @@ class KNN(object):
             # vote
             votes = {}
             for _, v in sl:
-                # print "v:", v
                 votes[v] = votes.get(v,0) + 1
-            # print "votes:", votes, "true:", Ytest[i]
+
             max_votes = 0
             max_votes_class = -1
             for v,count in iteritems(votes):

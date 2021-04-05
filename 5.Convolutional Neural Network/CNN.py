@@ -68,8 +68,6 @@ def main():
     Ytrain = Ytrain[:73000]
     Xtest = Xtest[:26000,]
     Ytest = Ytest[:26000]
-    # print "Xtest.shape:", Xtest.shape
-    # print "Ytest.shape:", Ytest.shape
 
     # initial weights
     M = 500

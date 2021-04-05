@@ -38,30 +38,21 @@ def plot_k_means(X, K, max_iter=20, beta=3.0, show_plots=False):
     initial_centers = np.random.choice(N, K, replace=False)
     # K x D
     M = X[initial_centers]
-    # print(initial_centers)
-    # print(M)
 
     costs = []
     k = 0
     for i in range(max_iter):
         k += 1
         # step 1: determine assignments / resposibilities
-        # is this inefficient?
+
         for k in range(K):
             for n in range(N):
                 exponents[n,k] = np.exp(-beta*d(M[k], X[n]))
-        # 900 x 3
+
         R = exponents / exponents.sum(axis=1, keepdims=True)
 
         # step 2: recalculate means
-        # decent vectorization
-        # for k in range(K):
-        #     M[k] = R[:,k].dot(X) / R[:,k].sum()
-        # oldM = M
 
-        # full vectorization
-        # R.T.dot(X) -> 3,2 
-        # R.sum.T -> 3,1
         M = R.T.dot(X) / R.sum(axis=0, keepdims=True).T
         c = cost(X, R, M)
         costs.append(c)
@@ -72,9 +63,7 @@ def plot_k_means(X, K, max_iter=20, beta=3.0, show_plots=False):
         if len(costs) > 1:
             if costs[-1] > costs[-2]:
                 pass
-                # print("cost increased!")
-                # print("M:", M)
-                # print("R.min:", R.min(), "R.max:", R.max())
+
 
     if show_plots:
         plt.plot(costs)

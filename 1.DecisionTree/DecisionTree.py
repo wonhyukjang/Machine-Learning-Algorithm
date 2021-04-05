@@ -24,7 +24,6 @@ def entropy(y):
         return 0
     p1 = float(s1) / N
     p0 = 1 - p1
-    # return -p0*np.log2(p0) - p1*np.log2(p1)
     return 1 - p0*p0 - p1*p1
 
 
@@ -63,7 +62,7 @@ class DecisionTree:
                 best_split = None
                 for col in cols:
                     ig, split = self.find_split(X, Y, col)
-                    # print "ig:", ig
+
                     if ig > max_ig:
                         max_ig = ig
                         best_col = col
@@ -80,7 +79,6 @@ class DecisionTree:
                     current_node['col'] = best_col
                     current_node['split'] = best_split
 
-                    # if self.depth == self.max_depth:
                     if depth == self.max_depth:
                         current_node['left'] = None
                         current_node['right'] = None
@@ -89,14 +87,12 @@ class DecisionTree:
                             np.round(Y[X[:,best_col] >= self.split].mean()),
                         ]
                     else:
-                        # print "best split:", best_split
                         left_idx = (X[:,best_col] < best_split)
-                        # print "left_idx.shape:", left_idx.shape, "len(X):", len(X)
+
                         # TODO: bad but I can't figure out a better way atm
                         Xleft = X[left_idx]
                         Yleft = Y[left_idx]
-                        # self.left = TreeNode(self.depth + 1, self.max_depth)
-                        # self.left.fit(Xleft, Yleft)
+
                         new_node = {}
                         current_node['left'] = new_node
                         left_data = {
@@ -109,8 +105,7 @@ class DecisionTree:
                         right_idx = (X[:,best_col] >= best_split)
                         Xright = X[right_idx]
                         Yright = Y[right_idx]
-                        # self.right = TreeNode(self.depth + 1, self.max_depth)
-                        # self.right.fit(Xright, Yright)
+
                         new_node = {}
                         current_node['right'] = new_node
                         right_data = {
@@ -163,7 +158,7 @@ class DecisionTree:
 
     def information_gain(self, x, y, split):
         # assume classes are 0 and 1
-        # print "split:", split
+
         y0 = y[x < split]
         y1 = y[x >= split]
         N = len(y)
@@ -171,7 +166,7 @@ class DecisionTree:
         if y0len == 0 or y0len == N:
             return 0
         p0 = float(len(y0)) / N
-        p1 = 1 - p0 #float(len(y1)) / N
+        p1 = 1 - p0 
 
         # Gini Index for entropy
         return entropy(y) - p0*entropy(y0) - p1*entropy(y1)
